@@ -1,0 +1,203 @@
+<div class="container tool-bar">
+  <button *ngIf="editable" type="button" class="btn btn-default" [disabled]="btnDisabled('create_folder')"
+    (click)="openModal(dialogType.NEW, createFolderDlg)"><i class="fas fa-plus-circle"></i> New
+    Folder</button>
+  <button *ngIf="editable" type="button" class="btn btn-default" [disabled]="btnDisabled('upload_file')"
+    (click)="openModal(dialogType.UPLOAD, uploadFileDlg)"><i class="fas fa-upload"></i>
+    Upload</button>
+  <button type="button" class="btn btn-default" [disabled]="btnDisabled('download')" (click)="download()"><i
+      class="fas fa-download"></i> Download</button>
+  <button *ngIf="editable" type="button" class="btn btn-default" [disabled]="btnDisabled('rename')"
+    (click)="openModal(dialogType.RENAME,renameDlg)"><i class="fab fa-autoprefixer"></i> Rename</button>
+  <button *ngIf="editable" type="button" class="btn btn-default" [disabled]="btnDisabled('move')"
+    (click)="openModal(dialogType.MOVE, moveDlg)"><i class="fas fa-exchange-alt"></i> Move</button>
+  <button *ngIf="editable" type="button" class="btn btn-default" [disabled]="btnDisabled('archive')"
+    (click)="openModal(dialogType.ARCHIVE, archiveDlg)"><i class="fas fa-archive"></i>
+    Archive</button>
+  <button *ngIf="editable" type="button" class="btn btn-default" [disabled]="btnDisabled('delete')"
+    (click)="openModal(dialogType.DELETE, deleteConfirmDlg)"><i class="fas fa-trash-alt"></i> Delete</button>
+</div>
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li *ngFor="let bcp of breadCrumbPaths" class="breadcrumb-item" (click)="navigateDir(bcp.path)"><a>
+          {{bcp.name}}</a>
+      </li>
+    </ol>
+  </nav>
+
+  <table class="table table-hover table-striped table-sm">
+    <thead>
+      <tr class="sortable">
+        <th><input type="checkbox" value="" (change)="selectAll($event)"></th>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Size</th>
+        <th>Created At</th>
+        <!-- <th>Updated At</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="sortable" *ngFor="let file of currFiles">
+        <td><input type="checkbox" value="{{file.name}}" [(ngModel)]="file.selected" (change)="selectFile($event)"></td>
+        <td><i *ngIf="file.isDir" class="fas fa-folder" style="color: #ffcc00;"></i><i *ngIf="!file.isDir"
+            class="fas fa-file" style="color: #66ccff;"></i></td>
+        <!-- <td><a [routerLink]="['/player', file.relPath ]">{{file.name}}</a></td> -->
+        <td (click)="clickFile(file)"><a>{{file.name | truncateName }}</a></td>
+        <td>{{file.size | humanSize}}</td>
+        <td>{{file.createdAt | date:'medium'}}</td>
+        <!-- <td>{{file.updatedAt | date:'medium'}}</td> -->
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- modal dialogs -->
+<!-- new folder -->
+<ng-template #createFolderDlg>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">New Folder</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="cancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Full Path:　Home{{curFolderPath === '/' ? '' :
+      '/'}}{{curFolderPath}}{{newFolderName}}{{newFolderName===''?'':'/'}}
+    </p>
+    <label class="control-label">Folder Name</label><input class="form-control" my-autofocus
+      [(ngModel)]="newFolderName" />
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="createFolder(newFolderName)">OK</button>
+    <button type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
+  </div>
+</ng-template>
+
+<!-- upload file -->
+<ng-template #uploadFileDlg>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Upload Folder</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="cancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Upload to /{{curFolderPath}}</p>
+    <input type='file' id="upload" (change)="selectedFileChanged($event)">
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" (click)="upload()">Upload</button>
+    <button type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
+  </div>
+</ng-template>
+
+<!-- rename file or directory -->
+<ng-template #renameDlg>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Rename</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="cancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <label class="control-label">New Name</label><input class="form-control" my-autofocus [(ngModel)]="newFileName"
+      placeholder={{selection[0].name}} />
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="rename(newFileName)">Save</button>
+    <button type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
+  </div>
+</ng-template>
+
+<!-- move files or directories -->
+<ng-template #moveDlg>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Move File or Directory</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="cancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <label class="control-label">Target</label><input class="form-control" my-autofocus [(ngModel)]="moveTarget"
+      placeholder="{{curFolderPath}}" />
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="move(moveTarget)">OK</button>
+    <button type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
+  </div>
+</ng-template>
+
+<!-- archive files or directories -->
+<ng-template #archiveDlg>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Create Archive</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="cancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <label class="control-label">Name</label><input class="form-control" my-autofocus [(ngModel)]="archiveTarget"
+      placeholder="Enter name of archive" />
+    <div class="checkbox">
+      <label><input type="checkbox" [checked]="archiveEmbedDirs" [(ngModel)]="archiveEmbedDirs"> Embed
+        directories in archive</label>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="archive(archiveTarget)">Create</button>
+    <button type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
+  </div>
+</ng-template>
+
+<!-- delete confirmation -->
+<ng-template #deleteConfirmDlg>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Delete File</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="cancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure to delete the file or directory?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="delete()">Yes</button>
+    <button type="button" class="btn btn-light" (click)="cancel()">No</button>
+  </div>
+</ng-template>
+
+<!-- view image/pdf -->
+<ng-template #viewFileDlg>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{viewFileName}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="cancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <img *ngIf="viewImageUrl" src="{{viewImageUrl}}" width="100%" class="rounded">
+    <pdf-viewer *ngIf="viewPdfUrl" [src]="viewPdfUrl" [original-size]="false"></pdf-viewer>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="downloadImage(viewFileRelPath)">Download</button>
+    <button type="button" class="btn btn-danger" (click)="cancel()">Close</button>
+  </div>
+</ng-template>
+
+<!-- view pdf -->
+<!-- <ng-template #viewPdfDlg>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{pdfName}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="cancel()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <pdf-viewer [src]="pdfUrl" [original-size]="false"></pdf-viewer>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="downloadImage(pdfRelPath)">Download</button>
+    <button type="button" class="btn btn-danger" (click)="cancel()">Close</button>
+  </div>
+</ng-template> -->

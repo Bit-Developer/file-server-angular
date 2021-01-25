@@ -1,0 +1,40 @@
+.tool-bar {
+  margin-bottom: 5px;
+}
+
+.btn {
+  margin-right: 10px;
+}
+
+a:not([href]) {
+  /* Styles for anchors without href */
+  color: #007bff;
+}
+
+ // Styles for anchors without href 
+/* unvisited link */
+a:not([href]):link { 
+  color: #007bff;
+}
+
+/* visited link */
+a:not([href]):visited {
+  color: #0066cc;
+}
+
+/* mouse over link */
+a:not([href]):hover {
+  color: #0066cc;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* selected link */
+a:not([href]):active {
+  text-decoration: underline;
+}
+
+pdf-viewer {
+  display: block;
+  height: 70vh;
+}

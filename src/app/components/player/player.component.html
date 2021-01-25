@@ -1,0 +1,11 @@
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li *ngFor="let bcp of breadCrumbPaths" class="breadcrumb-item"><a
+          [routerLink]="['/explorer', bcp.path ]">{{bcp.name}}</a>
+      </li>
+    </ol>
+  </nav>
+  <h4>{{filename}}</h4>
+  <widget-video-player [options]="playerOpts"></widget-video-player>
+</div>
