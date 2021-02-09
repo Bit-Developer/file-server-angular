@@ -1,0 +1,6 @@
+<ul class="pager">
+    <li *ngIf="getPrevLink()"><a href="{{getPrevLink()}}">Previous</a></li>
+    <li *ngIf="!getPrevLink()" class="disable"><a class="disable" href="{{getPrevLink()}}">Previous</a></li>
+    <li *ngIf="getNextLink()" class="next"><a href="{{getNextLink()}}">Next</a></li>
+    <li *ngIf="!getNextLink()" class="next disable"><a class="disable" href="{{getNextLink()}}">Next</a></li>
+</ul>

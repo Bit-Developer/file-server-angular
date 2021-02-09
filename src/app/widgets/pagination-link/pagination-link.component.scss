@@ -1,0 +1,35 @@
+.pager {
+  list-style-type: none;
+  margin: 0;
+  padding: 10px 0;
+  overflow: hidden;
+}
+.pager li {
+  float: left;
+}
+.pager .next {
+  float:right
+}
+.pager a {
+  display: inline-block;
+  text-decoration: none;
+  color: #007bff;
+  border: 1px solid transparent;
+  border-color: #007bff;
+  border-radius: .25rem;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.pager .disable a {
+  border-color: #ccc;
+  color: #808080;
+  pointer-events: none;
+  cursor: default;
+}
+@media (max-width: 424px) {
+  .pager a {
+    font-size: 13px;
+    padding: 0.2rem;
+  }
+}

@@ -148,7 +148,7 @@ export class VideoPlayerComponent implements OnDestroy {
   }
 
   play() {
-    this.player.play();
+    this.player.play(); // eslint-disable-line
   }
 
   replay() {

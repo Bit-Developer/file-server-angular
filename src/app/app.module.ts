@@ -22,6 +22,7 @@ import { FileViewComponent } from './components/file-view/file-view.component';
 import { ProgressBarComponent } from './widgets/progress-bar/progress-bar.component';
 import { MessageAlertComponent } from './widgets/message-alert/message-alert.component';
 import { VideoPlayerComponent } from './widgets/video-player/video-player.component';
+import { PaginationLinkComponent } from './widgets/pagination-link/pagination-link.component';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
@@ -41,6 +42,7 @@ import { ErrorInterceptor } from './interceptors';
     ExplorerComponent,
     PlayerComponent,
     VideoPlayerComponent,
+    PaginationLinkComponent,
     HeaderComponent,
     FooterComponent,
     FileSizePipe,
@@ -70,7 +72,7 @@ import { ErrorInterceptor } from './interceptors';
   //bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private injector: Injector) { }
+  constructor(private injector: Injector) {}
 
   // use ngDoBootstrap instead of bootstrap to get injector
   ngDoBootstrap(applicationRef: ApplicationRef) {
