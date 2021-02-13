@@ -3,8 +3,6 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
-
 import { FileItem } from '../../models';
 
 @Injectable({
@@ -12,7 +10,7 @@ import { FileItem } from '../../models';
 })
 export class ExplorerService {
   // api url
-  apiUrl = environment.apiUrl + '/file';
+  apiUrl = '/api/file';
 
   // create constructor to get Http instance
   constructor(private http: HttpClient) {}

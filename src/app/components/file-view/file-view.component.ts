@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-file-view',
@@ -8,15 +7,15 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./file-view.component.scss'],
 })
 export class FileViewComponent implements OnInit {
-  fileUrl = environment.fileUrl;
+  fileUrl: string;
   filename: string;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.filename = decodeURIComponent(params.url);
-      this.fileUrl = this.fileUrl + '/' + this.filename;
+      this.fileUrl = '/static/' + this.filename;
     });
   }
 }

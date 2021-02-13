@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { environment } from '../../../environments/environment';
 import { BaseFormComponent } from '../base-form.component';
 import { ExplorerService } from '../explorer/explorer.service';
 import { NavPath } from 'src/app/models';
@@ -13,7 +12,6 @@ import { FileUtil } from '../explorer/util';
   styleUrls: ['./player.component.scss'],
 })
 export class PlayerComponent extends BaseFormComponent {
-  fileUrl = environment.fileUrl;
   playerOpts: any;
 
   relPath: string;
@@ -34,7 +32,7 @@ export class PlayerComponent extends BaseFormComponent {
       this.breadCrumbPaths = this.buildBreadcrumbList(this.relPath);
       if (FileUtil.isVideo(this.relPath)) {
         this.playerOpts = {
-          url: this.fileUrl + '/' + this.relPath,
+          url: '/static/' + this.relPath,
           volume: 0.5,
           autoplay: true,
         };
@@ -43,9 +41,14 @@ export class PlayerComponent extends BaseFormComponent {
         (files) => {
           for (let i = 0; i < files.length; i++) {
             if (files[i].name === this.filename) {
-              this.prev = i > 0 ? `player/${FileUtil.encodeURL(`${this.currFolder}${encodeURIComponent(files[i - 1].name)}`)}` : '';
+              this.prev =
+                i > 0
+                  ? `player/${FileUtil.encodeURL(`${this.currFolder}${encodeURIComponent(files[i - 1].name)}`)}`
+                  : '';
               this.next =
-                i < files.length - 1 ? `player/${FileUtil.encodeURL(`${this.currFolder}${encodeURIComponent(files[i + 1].name)}`)}` : '';
+                i < files.length - 1
+                  ? `player/${FileUtil.encodeURL(`${this.currFolder}${encodeURIComponent(files[i + 1].name)}`)}`
+                  : '';
               break;
             }
           }

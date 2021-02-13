@@ -1,0 +1,12 @@
+{
+  "/api": {
+    "target": "http://192.168.0.2:9900",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/static": {
+    "target": "http://192.168.0.2:9900",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

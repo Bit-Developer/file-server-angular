@@ -31,6 +31,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/@fortawesome/fontawesome-free/css/all.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -70,11 +71,13 @@
           "options": {
             "browserTarget": "file-server-angular:build",
             "port": 13010,
-            "host": "localhost"
+            "host": "localhost",
+            "proxyConfig": "src/proxy-local.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "file-server-angular:build:production"
+              "browserTarget": "file-server-angular:build:production",
+              "proxyConfig": "src/proxy-prod.conf.json"
             }
           }
         },

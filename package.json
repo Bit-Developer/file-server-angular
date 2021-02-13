@@ -4,7 +4,7 @@
   "scripts": {
     "start": "ng serve --open",
     "build": "ng build",
-    "prod": "ng build --prod",
+    "prod": "ng build --prod && ng serve --prod",
     "test": "ng test",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
     "e2e": "ng e2e"

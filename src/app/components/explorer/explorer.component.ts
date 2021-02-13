@@ -25,9 +25,7 @@ export class ExplorerComponent extends BaseFormComponent {
   dialogType: typeof DialogType = DialogType;
 
   editable = environment.editable;
-  apiUrl = environment.apiUrl;
-  fileUrl = environment.fileUrl;
-  downLoadUrl = this.apiUrl + '/file/download/';
+  downLoadUrl = '/api/file/download/';
 
   // file manaager
   curFolderPath = '/'; // current relative folder path
@@ -195,12 +193,12 @@ export class ExplorerComponent extends BaseFormComponent {
       } else if (FileUtil.isImage(file.name)) {
         this.viewFileName = file.name;
         this.viewFileRelPath = decodeURIComponent(file.relPath);
-        this.viewImageUrl = this.fileUrl + '/' + decodeURIComponent(file.relPath);
+        this.viewImageUrl = '/static/' + decodeURIComponent(file.relPath);
         this.modalRef = this.modalService.show(this.viewFileDlgRef, { class: 'modal-lg' });
       } else if (FileUtil.isPdf(file.name)) {
         this.viewFileName = file.name;
         this.viewFileRelPath = decodeURIComponent(file.relPath);
-        this.viewPdfUrl = this.fileUrl + '/' + decodeURIComponent(file.relPath);
+        this.viewPdfUrl = '/static/' + decodeURIComponent(file.relPath);
         this.modalRef = this.modalService.show(this.viewFileDlgRef, { class: 'modal-lg' });
       } else if (FileUtil.isText(file.name)) {
         const url = `view/${FileUtil.encodeURL(file.relPath)}`;
