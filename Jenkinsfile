@@ -21,7 +21,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh 'docker rm $(docker stop $(docker ps -a -q --filter="name=file-server-angular"))'
-                sh 'docker run --name file-server-angular -p 12010:80 -d jojozhuang/file-server-angular'
+                sh 'docker run --name file-server-angular -p 12021:80 -d jojozhuang/file-server-angular'
             }
         }
     }

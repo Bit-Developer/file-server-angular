@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "start": "ng serve --open",
-    "build": "ng build",
+    "build": "ng build --prod",
     "prod": "ng build --prod && ng serve --prod",
     "test": "ng test",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
