@@ -1,12 +1,12 @@
 {
   "/api": {
-    "target": "http://localhost:9000",
+    "target": "http://localhost:12021",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
   },
   "/static": {
-    "target": "http://localhost:9000",
+    "target": "http://localhost:12021",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"

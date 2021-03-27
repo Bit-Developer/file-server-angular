@@ -70,7 +70,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "file-server-angular:build",
-            "port": 13010,
+            "port": 12020,
             "host": "localhost",
             "proxyConfig": "src/proxy-local.conf.json"
           },
