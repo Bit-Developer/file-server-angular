@@ -4,7 +4,7 @@
   "scripts": {
     "start": "ng serve --open",
     "build": "ng build --prod",
-    "prod": "ng serve --prod",
+    "prod": "ng build --prod && ng serve --prod",
     "build-nas": "ng build --configuration nas",
     "start-nas": "npm run build-nas && ng serve --configuration nas",
     "test": "ng test",
