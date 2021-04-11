@@ -8,9 +8,11 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  envName: string;
   siteTitle: string;
 
   ngOnInit() {
+    this.envName = environment.env_name;
     this.siteTitle = environment.site_title;
   }
 }
