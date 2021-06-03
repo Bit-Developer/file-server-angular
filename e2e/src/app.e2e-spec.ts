@@ -1,14 +1,14 @@
 import { AppPage } from './app.po';
 import { browser, logging } from 'protractor';
 
-describe('workspace-project App', () => {
+describe('file-server-angular App', () => {
   let page: AppPage;
 
   beforeEach(() => {
     page = new AppPage();
   });
 
-  it('should display welcome message', async () => {
+  it('should display file server title', async () => {
     await page.navigateTo();
     expect(await page.getTitleText()).toEqual('File Server');
   });
