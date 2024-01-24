@@ -8,6 +8,7 @@
     "prod": "ng build --configuration production && ng serve --configuration production",
     "build-nas": "ng build --configuration nas",
     "start-nas": "npm run build-nas && ng serve --configuration nas",
+    "start-vdi": "npm run build-vdi && ng serve --configuration vdi",
     "test": "ng test",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
     "e2e": "ng e2e"

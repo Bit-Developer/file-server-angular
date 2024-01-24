@@ -139,6 +139,10 @@
               "browserTarget": "file-server-angular:build:nas",
               "proxyConfig": "src/proxy-nas.conf.json"
             },
+            "vdi": {
+              "browserTarget": "file-server-angular:build:vdi",
+              "proxyConfig": "src/proxy-vdi.conf.json"
+            },
             "production": {
               "browserTarget": "file-server-angular:build:production",
               "proxyConfig": "src/proxy-prod.conf.json"

@@ -1,0 +1,12 @@
+{
+  "/api": {
+    "target": "http://10.76.116.116:32031",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/static": {
+    "target": "http://10.76.116.116:32030",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

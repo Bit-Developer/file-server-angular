@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   env_name: 'Local',
   site_title: 'File Server',
+  apiUrl: 'http://localhost:12021/',
   logging_level: 6, // 0: no logging, 1: error, 2: warn, 3: info, 4: debug, 5: log
   editable: true,
 };
